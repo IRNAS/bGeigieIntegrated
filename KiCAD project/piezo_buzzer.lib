@@ -1,0 +1,19 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#
+# piezo_buzzer
+#
+DEF piezo_buzzer U 0 40 Y Y 1 F N
+F0 "U" -150 200 60 H V C CNN
+F1 "piezo_buzzer" 50 -300 60 H V C CNN
+F2 "" 0 0 60 H V C CNN
+F3 "" 0 0 60 H V C CNN
+DRAW
+S 0 100 150 -150 0 1 0 N
+P 4 0 1 0  150 100  300 200  300 -250  150 -150 N
+X + 1 -200 50 200 R 50 50 1 1 I
+X - 2 -200 -100 200 R 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+#End Library

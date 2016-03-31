@@ -1,0 +1,13 @@
+(module MURATA_PKM22EPPH2001-B0 (layer F.Cu) (tedit 562A25A0)
+  (fp_text reference U** (at -6.9 -2) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
+  (fp_text value MURATA_PKM22EPPH2001-B0 (at -16.05 0.05) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_circle (center 5 0) (end 14.5 -0.2) (layer F.SilkS) (width 0.3))
+  (pad 2 thru_hole circle (at 10 0) (size 7 7) (drill 3.8) (layers *.Cu *.Mask F.SilkS))
+  (pad 1 thru_hole circle (at 0 0) (size 7 7) (drill 3.8) (layers *.Cu *.Mask F.SilkS))
+  (pad 3 thru_hole circle (at 5 -5) (size 3 3) (drill 1.5) (layers *.Cu *.Mask F.SilkS))
+  (pad 3 thru_hole circle (at 5 5) (size 3 3) (drill 1.5) (layers *.Cu *.Mask F.SilkS))
+)
