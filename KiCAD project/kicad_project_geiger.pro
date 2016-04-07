@@ -1,4 +1,4 @@
-update=22.3.2016 12:07:33
+update=7.4.2016 12:21:02
 version=1
 last_client=kicad
 [pcbnew]
@@ -88,3 +88,8 @@ LibName46=lm3880
 LibName47=mcp1826s
 LibName48=piezo_buzzer
 LibName49=stereo_audio_socket
+LibName50=ufl_conn
+LibName51=zxmp6a13f
+LibName52=rsr010n10fhatl
+LibName53=bat20j
+LibName54=bc847c
