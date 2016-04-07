@@ -17,4 +17,4 @@ We created an integrated version of the bGeigie device, a mobile survey Geiger c
  * changed to I2C interface
  * TODO: find some replacements
 * magnetic buzzer with integrated oscillator
-* high brigthes LEDs for COUNT and LOG indication
+* high brigthess LEDs for COUNT and LOG indication
