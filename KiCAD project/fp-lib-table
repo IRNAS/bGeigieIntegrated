@@ -32,6 +32,9 @@
   (lib (name KPD-3224SURCK)(type KiCad)(uri "$(KIPRJMOD)\\KPD-3224SURCK.pretty")(options "")(descr ""))
   (lib (name UFL-R-SMT)(type KiCad)(uri "$(KIPRJMOD)\\UFL-R-SMT.pretty")(options "")(descr ""))
   (lib (name B3B-PH-SM4-TB_IROVER_CONNECTOR)(type KiCad)(uri "$(KIPRJMOD)\\B3B-PH-SM4-TB_IROVER_CONNECTOR.pretty")(options "")(descr ""))
+<<<<<<< HEAD
   (lib (name "DIP Grove 4P-2.0")(type KiCad)(uri "$(KIPRJMOD)\\DIP Grove 4P-2.0.pretty")(options "")(descr ""))
   (lib (name rotary_enc_bourns_EC12R-4215F-S0024)(type KiCad)(uri "$(KIPRJMOD)\\rotary_enc_bourns_EC12R-4215F-S0024.pretty")(options "")(descr ""))
+=======
+>>>>>>> origin/master
 )
