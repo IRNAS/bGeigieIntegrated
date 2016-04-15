@@ -1,0 +1,21 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#
+# rotary_encoder
+#
+DEF rotary_encoder U 0 40 Y Y 1 F N
+F0 "U" 50 300 60 H V C CNN
+F1 "rotary_encoder" 50 -300 60 H V C CNN
+F2 "" 0 250 60 H V C CNN
+F3 "" 0 250 60 H V C CNN
+DRAW
+S 0 250 250 -250 0 1 0 N
+X SW1 1 -200 200 200 R 50 50 1 1 I
+X SW2 2 -200 100 200 R 50 50 1 1 I
+X CHA 3 -200 0 200 R 50 50 1 1 I
+X COM 4 -200 -100 200 R 50 50 1 1 I
+X CHB 5 -200 -200 200 R 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+#End Library

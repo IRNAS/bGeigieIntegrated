@@ -1,4 +1,4 @@
-update=7.4.2016 12:21:02
+update=15.4.2016 11:07:09
 version=1
 last_client=kicad
 [pcbnew]
@@ -93,3 +93,5 @@ LibName51=zxmp6a13f
 LibName52=rsr010n10fhatl
 LibName53=bat20j
 LibName54=bc847c
+LibName55=i2c_connector
+LibName56=rotary_encoder
