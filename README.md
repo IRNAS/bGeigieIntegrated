@@ -18,3 +18,4 @@ We created an integrated version of the bGeigie device, a mobile survey Geiger c
  * TODO: find some replacements
 * magnetic buzzer with integrated oscillator
 * high brigthess LEDs for COUNT and LOG indication
+* added rotary encoder
