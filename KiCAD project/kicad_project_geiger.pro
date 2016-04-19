@@ -1,4 +1,4 @@
-update=15.4.2016 11:07:09
+update=19.4.2016 11:29:42
 version=1
 last_client=kicad
 [pcbnew]
@@ -95,3 +95,6 @@ LibName53=bat20j
 LibName54=bc847c
 LibName55=i2c_connector
 LibName56=rotary_encoder
+LibName57=small_i2c_oled
+LibName58=ltc4412
+LibName59=si1967dh
