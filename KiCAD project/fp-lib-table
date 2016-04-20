@@ -37,4 +37,6 @@
   (lib (name Small_I2C_OLED)(type KiCad)(uri "$(KIPRJMOD)\\Small_I2C_OLED.pretty")(options "")(descr ""))
   (lib (name LTC4412)(type KiCad)(uri "$(KIPRJMOD)\\LTC4412.pretty")(options "")(descr ""))
   (lib (name Si1967DH)(type KiCad)(uri "$(KIPRJMOD)\\Si1967DH.pretty")(options "")(descr ""))
+  (lib (name safecast_logo)(type KiCad)(uri "$(KIPRJMOD)\\safecast_logo.pretty")(options "")(descr ""))
+  (lib (name opensource_hardware)(type KiCad)(uri "$(KIPRJMOD)\\opensource_hardware.pretty")(options "")(descr ""))
 )
