@@ -1,4 +1,4 @@
-update=19.4.2016 11:29:42
+update=20.6.2016 15:08:55
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,16 +25,6 @@ version=1
 NetIExt=net
 [general]
 version=1
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
 [eeschema]
 version=1
 LibDir=
@@ -98,3 +88,13 @@ LibName56=rotary_encoder
 LibName57=small_i2c_oled
 LibName58=ltc4412
 LibName59=si1967dh
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=../
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
