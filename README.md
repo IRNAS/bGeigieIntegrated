@@ -15,7 +15,7 @@ We created an integrated version of the bGeigie device, a mobile survey Geiger c
  * uFL connector for external antenna
 * OLED display:
  * changed to I2C interface
- * added socket for alternative [display](http://www.aliexpress.com/item/Yellow-blue-double-color-and-white-128X64-0-96-inch-OLED-LCD-LED-Display-Module-For/32596867613.html?spm=2114.01010208.3.1.g3SQnj&ws_ab_test=searchweb201556_7,searchweb201602_1_10017_10005_10006_10034_10021_507_10022_508_10020_10018_10019,searchweb201603_7&btsid=5a852adc-a3e3-4cea-823f-5d48bcb473b9)
+ * added socket for alternative [display](https://www.amazon.com/Diymall%C2%AE-Yellow-Serial-Arduino-Display/dp/B00O2LLT30)
 * magnetic buzzer with integrated oscillator
 * high brigthess LEDs for COUNT and LOG indication
 * added rotary encoder
