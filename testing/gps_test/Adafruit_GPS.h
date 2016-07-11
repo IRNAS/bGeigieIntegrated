@@ -1,22 +1,22 @@
 /***********************************
-This is the Adafruit GPS library - the ultimate GPS library
-for the ultimate GPS module!
+  This is the Adafruit GPS library - the ultimate GPS library
+  for the ultimate GPS module!
 
-Tested and works great with the Adafruit Ultimate GPS module
-using MTK33x9 chipset
+  Tested and works great with the Adafruit Ultimate GPS module
+  using MTK33x9 chipset
     ------> http://www.adafruit.com/products/746
-Pick one up today at the Adafruit electronics shop 
-and help support open source hardware & software! -ada
+  Pick one up today at the Adafruit electronics shop
+  and help support open source hardware & software! -ada
 
-Adafruit invests time and resources providing this open source code, 
-please support Adafruit and open-source hardware by purchasing 
-products from Adafruit!
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
+  products from Adafruit!
 
-Written by Limor Fried/Ladyada  for Adafruit Industries.  
-BSD license, check license.txt for more information
-All text above must be included in any redistribution
+  Written by Limor Fried/Ladyada  for Adafruit Industries.
+  BSD license, check license.txt for more information
+  All text above must be included in any redistribution
 ****************************************/
-// Fllybob added lines 34,35 and 40,41 to add 100mHz logging capability 
+// Fllybob added lines 34,35 and 40,41 to add 100mHz logging capability
 
 #ifndef _ADAFRUIT_GPS_H
 #define _ADAFRUIT_GPS_H
@@ -73,9 +73,9 @@ All text above must be included in any redistribution
 // ask for the release and version
 #define PMTK_Q_RELEASE "$PMTK605*31"
 
-// request for updates on antenna status 
-#define PGCMD_ANTENNA "$PGCMD,33,1*6C" 
-#define PGCMD_NOANTENNA "$PGCMD,33,0*6D" 
+// request for updates on antenna status
+#define PGCMD_ANTENNA "$PGCMD,33,1*6C"
+#define PGCMD_NOANTENNA "$PGCMD,33,0*6D"
 
 // how long to wait when we're looking for a response
 #define MAXWAITSENTENCE 5
@@ -84,59 +84,59 @@ All text above must be included in any redistribution
 
 
 class Adafruit_GPS {
- public:
-  void begin(uint16_t baud); 
+  public:
+    void begin(uint16_t baud);
 
-//  Adafruit_GPS(HardwareSerial *ser); // Constructor when using HardwareSerial
-Adafruit_GPS(Stream *ser); // Constructor when using HardwareSerial
+    //  Adafruit_GPS(HardwareSerial *ser); // Constructor when using HardwareSerial
+    Adafruit_GPS(Stream *ser); // Constructor when using HardwareSerial
 
-  char *lastNMEA(void);
-  boolean newNMEAreceived();
-  void common_init(void);
+    char *lastNMEA(void);
+    boolean newNMEAreceived();
+    void common_init(void);
 
-  void sendCommand(const char *);
-  
-  void pause(boolean b);
+    void sendCommand(const char *);
 
-  boolean parseNMEA(char *response);
-  uint8_t parseHex(char c);
+    void pause(boolean b);
 
-  char read(void);
-  boolean parse(char *);
-  void interruptReads(boolean r);
+    boolean parseNMEA(char *response);
+    uint8_t parseHex(char c);
 
-  boolean wakeup(void);
-  boolean standby(void);
+    char read(void);
+    boolean parse(char *);
+    void interruptReads(boolean r);
 
-  uint8_t hour, minute, seconds, year, month, day;
-  uint16_t milliseconds;
-  // Floating point latitude and longitude value in degrees.
-  float latitude, longitude;
-  // Fixed point latitude and longitude value with degrees stored in units of 1/100000 degrees,
-  // and minutes stored in units of 1/100000 degrees.  See pull #13 for more details:
-  //   https://github.com/adafruit/Adafruit-GPS-Library/pull/13
-  int32_t latitude_fixed, longitude_fixed;
-  float latitudeDegrees, longitudeDegrees;
-  float geoidheight, altitude;
-  float speed, angle, magvariation, HDOP;
-  char lat, lon, mag;
-  boolean fix;
-  uint8_t fixquality, satellites;
+    boolean wakeup(void);
+    boolean standby(void);
 
-  boolean waitForSentence(const char *wait, uint8_t max = MAXWAITSENTENCE);
-  boolean LOCUS_StartLogger(void);
-  boolean LOCUS_StopLogger(void);
-  boolean LOCUS_ReadStatus(void);
+    uint8_t hour, minute, seconds, year, month, day;
+    uint16_t milliseconds;
+    // Floating point latitude and longitude value in degrees.
+    float latitude, longitude;
+    // Fixed point latitude and longitude value with degrees stored in units of 1/100000 degrees,
+    // and minutes stored in units of 1/100000 degrees.  See pull #13 for more details:
+    //   https://github.com/adafruit/Adafruit-GPS-Library/pull/13
+    int32_t latitude_fixed, longitude_fixed;
+    float latitudeDegrees, longitudeDegrees;
+    float geoidheight, altitude;
+    float speed, angle, magvariation, HDOP;
+    char lat, lon, mag;
+    boolean fix;
+    uint8_t fixquality, satellites;
 
-  uint16_t LOCUS_serial, LOCUS_records;
-  uint8_t LOCUS_type, LOCUS_mode, LOCUS_config, LOCUS_interval, LOCUS_distance, LOCUS_speed, LOCUS_status, LOCUS_percent;
- private:
-  boolean paused;
-  
-  uint8_t parseResponse(char *response);
-  
-//  HardwareSerial *gpsHwSerial;
-Stream *gpsHwSerial;
+    boolean waitForSentence(const char *wait, uint8_t max = MAXWAITSENTENCE);
+    boolean LOCUS_StartLogger(void);
+    boolean LOCUS_StopLogger(void);
+    boolean LOCUS_ReadStatus(void);
+
+    uint16_t LOCUS_serial, LOCUS_records;
+    uint8_t LOCUS_type, LOCUS_mode, LOCUS_config, LOCUS_interval, LOCUS_distance, LOCUS_speed, LOCUS_status, LOCUS_percent;
+  private:
+    boolean paused;
+
+    uint8_t parseResponse(char *response);
+
+    //  HardwareSerial *gpsHwSerial;
+    Stream *gpsHwSerial;
 };
 
 

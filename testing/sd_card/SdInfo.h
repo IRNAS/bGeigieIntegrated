@@ -1,22 +1,22 @@
 /* Arduino SdSpiCard Library
- * Copyright (C) 2012 by William Greiman
- *
- * This file is part of the Arduino SdSpiCard Library
- *
- * This Library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This Library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with the Arduino SdSpiCard Library.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
+   Copyright (C) 2012 by William Greiman
+
+   This file is part of the Arduino SdSpiCard Library
+
+   This Library is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This Library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with the Arduino SdSpiCard Library.  If not, see
+   <http://www.gnu.org/licenses/>.
+*/
 #ifndef SdInfo_h
 #define SdInfo_h
 
@@ -186,9 +186,9 @@ uint8_t const DATA_RES_MASK = 0X1F;
 uint8_t const DATA_RES_ACCEPTED = 0X05;
 //==============================================================================
 /**
- * \class CID
- * \brief Card IDentification (CID) register.
- */
+   \class CID
+   \brief Card IDentification (CID) register.
+*/
 typedef struct CID {
   // byte 0
   /** Manufacturer ID */
@@ -225,9 +225,9 @@ typedef struct CID {
 } __attribute__((packed)) cid_t;
 //==============================================================================
 /**
- * \class CSDV1
- * \brief CSD register for version 1.00 cards .
- */
+   \class CSDV1
+   \brief CSD register for version 1.00 cards .
+*/
 typedef struct CSDV1 {
   // byte 0
   unsigned char reserved1 : 6;
@@ -290,9 +290,9 @@ typedef struct CSDV1 {
 } __attribute__((packed)) csd1_t;
 //==============================================================================
 /**
- * \class CSDV2
- * \brief CSD register for version 2.00 cards.
- */
+   \class CSDV2
+   \brief CSD register for version 2.00 cards.
+*/
 typedef struct CSDV2 {
   // byte 0
   unsigned char reserved1 : 6;
@@ -375,9 +375,9 @@ typedef struct CSDV2 {
 } __attribute__((packed)) csd2_t;
 //==============================================================================
 /**
- * \class csd_t
- * \brief Union of old and new style CSD register.
- */
+   \class csd_t
+   \brief Union of old and new style CSD register.
+*/
 union csd_t {
   csd1_t v1;
   csd2_t v2;

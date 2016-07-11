@@ -1,26 +1,26 @@
 /* Arduino SdFat Library
- * Copyright (C) 2016 by William Greiman
- *
- * This file is part of the Arduino SdFat Library
- *
- * This Library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This Library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with the Arduino SdFat Library.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
+   Copyright (C) 2016 by William Greiman
+
+   This file is part of the Arduino SdFat Library
+
+   This Library is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This Library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with the Arduino SdFat Library.  If not, see
+   <http://www.gnu.org/licenses/>.
+*/
 
 #undef ARDUINO
 #define PLATFORM_ID 3
- 
+
 #include "SdSpi.h"
 #if defined(PLATFORM_ID)
 
@@ -42,7 +42,7 @@ const uint8_t m_spiIf = 0;
 #endif
 //-----------------------------------------------------------------------------
 void SD_SPI_DMA_TransferComplete_Callback(void) {
-    SPI_DMA_TransferCompleted = true;
+  SPI_DMA_TransferCompleted = true;
 }
 //------------------------------------------------------------------------------
 void SdSpi::begin(uint8_t chipSelectPin) {
@@ -74,7 +74,7 @@ void SdSpi::beginTransaction(uint8_t divisor) {
   spiPtr[m_spiIf]->setClockDivider(v);
 #endif  // SPI_CLOCK_DIV128
   // delay for SPI transfer done callback too soon bug.
-  bugDelay = 24*divisor*(1 + m_spiIf)/60;
+  bugDelay = 24 * divisor * (1 + m_spiIf) / 60;
 }
 //-----------------------------------------------------------------------------
 void SdSpi::endTransaction() {

@@ -1,26 +1,26 @@
 /* FatLib Library
- * Copyright (C) 2013 by William Greiman
- *
- * This file is part of the FatLib Library
- *
- * This Library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This Library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with the FatLib Library.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
+   Copyright (C) 2013 by William Greiman
+
+   This file is part of the FatLib Library
+
+   This Library is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This Library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with the FatLib Library.  If not, see
+   <http://www.gnu.org/licenses/>.
+*/
 
 #undef ARDUINO
 #define PLATFORM_ID 3
- 
+
 #include "FmtNumber.h"
 // Use Stimmer div/mod 10 on avr
 #ifdef __AVR__
@@ -37,89 +37,89 @@
 // divmod10_asm16 and divmod10_asm32 are public domain code by Stimmer.
 // http://forum.arduino.cc/index.php?topic=167414.msg1293679#msg1293679
 #define divmod10_asm16(in32, mod8, tmp8)    \
-asm volatile(          \
-      " ldi %2,51     \n\t"     \
-      " mul %A0,%2    \n\t"     \
-      " clr %A0       \n\t"     \
-      " add r0,%2     \n\t"     \
-      " adc %A0,r1    \n\t"     \
-      " mov %1,r0     \n\t"     \
-      " mul %B0,%2    \n\t"     \
-      " clr %B0       \n\t"     \
-      " add %A0,r0    \n\t"     \
-      " adc %B0,r1    \n\t"     \
-      " clr r1        \n\t"     \
-      " add %1,%A0    \n\t"     \
-      " adc %A0,%B0   \n\t"     \
-      " adc %B0,r1   \n\t"      \
-      " add %1,%B0    \n\t"     \
-      " adc %A0,r1   \n\t"      \
-      " adc %B0,r1    \n\t"     \
-      " lsr %B0       \n\t"     \
-      " ror %A0       \n\t"     \
-      " ror %1        \n\t"     \
-      " ldi %2,10     \n\t"     \
-      " mul %1,%2     \n\t"     \
-      " mov %1,r1     \n\t"     \
-      " clr r1        \n\t"     \
-      :"+r"(in32), "=d"(mod8), "=d"(tmp8) : : "r0")
+  asm volatile(          \
+                         " ldi %2,51     \n\t"     \
+                         " mul %A0,%2    \n\t"     \
+                         " clr %A0       \n\t"     \
+                         " add r0,%2     \n\t"     \
+                         " adc %A0,r1    \n\t"     \
+                         " mov %1,r0     \n\t"     \
+                         " mul %B0,%2    \n\t"     \
+                         " clr %B0       \n\t"     \
+                         " add %A0,r0    \n\t"     \
+                         " adc %B0,r1    \n\t"     \
+                         " clr r1        \n\t"     \
+                         " add %1,%A0    \n\t"     \
+                         " adc %A0,%B0   \n\t"     \
+                         " adc %B0,r1   \n\t"      \
+                         " add %1,%B0    \n\t"     \
+                         " adc %A0,r1   \n\t"      \
+                         " adc %B0,r1    \n\t"     \
+                         " lsr %B0       \n\t"     \
+                         " ror %A0       \n\t"     \
+                         " ror %1        \n\t"     \
+                         " ldi %2,10     \n\t"     \
+                         " mul %1,%2     \n\t"     \
+                         " mov %1,r1     \n\t"     \
+                         " clr r1        \n\t"     \
+                         :"+r"(in32), "=d"(mod8), "=d"(tmp8) : : "r0")
 
 #define divmod10_asm32(in32, mod8, tmp8)    \
-asm volatile(          \
-      " ldi %2,51     \n\t"     \
-      " mul %A0,%2    \n\t"     \
-      " clr %A0       \n\t"     \
-      " add r0,%2     \n\t"     \
-      " adc %A0,r1    \n\t"     \
-      " mov %1,r0     \n\t"     \
-      " mul %B0,%2    \n\t"     \
-      " clr %B0       \n\t"     \
-      " add %A0,r0    \n\t"     \
-      " adc %B0,r1    \n\t"     \
-      " mul %C0,%2    \n\t"     \
-      " clr %C0       \n\t"     \
-      " add %B0,r0    \n\t"     \
-      " adc %C0,r1    \n\t"     \
-      " mul %D0,%2    \n\t"     \
-      " clr %D0       \n\t"     \
-      " add %C0,r0    \n\t"     \
-      " adc %D0,r1    \n\t"     \
-      " clr r1        \n\t"     \
-      " add %1,%A0    \n\t"     \
-      " adc %A0,%B0   \n\t"     \
-      " adc %B0,%C0   \n\t"     \
-      " adc %C0,%D0   \n\t"     \
-      " adc %D0,r1    \n\t"     \
-      " add %1,%B0    \n\t"     \
-      " adc %A0,%C0   \n\t"     \
-      " adc %B0,%D0   \n\t"     \
-      " adc %C0,r1    \n\t"     \
-      " adc %D0,r1    \n\t"     \
-      " add %1,%D0    \n\t"     \
-      " adc %A0,r1    \n\t"     \
-      " adc %B0,r1    \n\t"     \
-      " adc %C0,r1    \n\t"     \
-      " adc %D0,r1    \n\t"     \
-      " lsr %D0       \n\t"     \
-      " ror %C0       \n\t"     \
-      " ror %B0       \n\t"     \
-      " ror %A0       \n\t"     \
-      " ror %1        \n\t"     \
-      " ldi %2,10     \n\t"     \
-      " mul %1,%2     \n\t"     \
-      " mov %1,r1     \n\t"     \
-      " clr r1        \n\t"     \
-      :"+r"(in32), "=d"(mod8), "=d"(tmp8) : : "r0")
+  asm volatile(          \
+                         " ldi %2,51     \n\t"     \
+                         " mul %A0,%2    \n\t"     \
+                         " clr %A0       \n\t"     \
+                         " add r0,%2     \n\t"     \
+                         " adc %A0,r1    \n\t"     \
+                         " mov %1,r0     \n\t"     \
+                         " mul %B0,%2    \n\t"     \
+                         " clr %B0       \n\t"     \
+                         " add %A0,r0    \n\t"     \
+                         " adc %B0,r1    \n\t"     \
+                         " mul %C0,%2    \n\t"     \
+                         " clr %C0       \n\t"     \
+                         " add %B0,r0    \n\t"     \
+                         " adc %C0,r1    \n\t"     \
+                         " mul %D0,%2    \n\t"     \
+                         " clr %D0       \n\t"     \
+                         " add %C0,r0    \n\t"     \
+                         " adc %D0,r1    \n\t"     \
+                         " clr r1        \n\t"     \
+                         " add %1,%A0    \n\t"     \
+                         " adc %A0,%B0   \n\t"     \
+                         " adc %B0,%C0   \n\t"     \
+                         " adc %C0,%D0   \n\t"     \
+                         " adc %D0,r1    \n\t"     \
+                         " add %1,%B0    \n\t"     \
+                         " adc %A0,%C0   \n\t"     \
+                         " adc %B0,%D0   \n\t"     \
+                         " adc %C0,r1    \n\t"     \
+                         " adc %D0,r1    \n\t"     \
+                         " add %1,%D0    \n\t"     \
+                         " adc %A0,r1    \n\t"     \
+                         " adc %B0,r1    \n\t"     \
+                         " adc %C0,r1    \n\t"     \
+                         " adc %D0,r1    \n\t"     \
+                         " lsr %D0       \n\t"     \
+                         " ror %C0       \n\t"     \
+                         " ror %B0       \n\t"     \
+                         " ror %A0       \n\t"     \
+                         " ror %1        \n\t"     \
+                         " ldi %2,10     \n\t"     \
+                         " mul %1,%2     \n\t"     \
+                         " mov %1,r1     \n\t"     \
+                         " clr r1        \n\t"     \
+                         :"+r"(in32), "=d"(mod8), "=d"(tmp8) : : "r0")
 //------------------------------------------------------------------------------
 /*
-// C++ code is based on this version of divmod10 by robtillaart.
-// http://forum.arduino.cc/index.php?topic=167414.msg1246851#msg1246851
-// from robtillaart post:
-// The code is based upon the divu10() code from the book Hackers Delight1.
-// My insight was that the error formula in divu10() was in fact modulo 10
-// but not always. Sometimes it was 10 more.
-void divmod10(uint32_t in, uint32_t &div, uint32_t &mod)
-{
+  // C++ code is based on this version of divmod10 by robtillaart.
+  // http://forum.arduino.cc/index.php?topic=167414.msg1246851#msg1246851
+  // from robtillaart post:
+  // The code is based upon the divu10() code from the book Hackers Delight1.
+  // My insight was that the error formula in divu10() was in fact modulo 10
+  // but not always. Sometimes it was 10 more.
+  void divmod10(uint32_t in, uint32_t &div, uint32_t &mod)
+  {
   // q = in * 0.8;
   uint32_t q = (in >> 1) + (in >> 2);
   q = q + (q >> 4);
@@ -134,12 +134,12 @@ void divmod10(uint32_t in, uint32_t &div, uint32_t &mod)
   div = q + (r > 9);
   if (r > 9) mod = r - 10;
   else mod = r;
-}
-// Hackers delight function is here:
-// http://www.hackersdelight.org/hdcodetxt/divuc.c.txt
-// Code below uses 8/10 = 0.1100 1100 1100 1100 1100 1100 1100 1100.
-// 15 ops including the multiply, or 17 elementary ops.
-unsigned divu10(unsigned n) {
+  }
+  // Hackers delight function is here:
+  // http://www.hackersdelight.org/hdcodetxt/divuc.c.txt
+  // Code below uses 8/10 = 0.1100 1100 1100 1100 1100 1100 1100 1100.
+  // 15 ops including the multiply, or 17 elementary ops.
+  unsigned divu10(unsigned n) {
    unsigned q, r;
 
    q = (n >> 1) + (n >> 2);
@@ -149,8 +149,8 @@ unsigned divu10(unsigned n) {
    q = q >> 3;
    r = n - q*10;
    return q + ((r + 6) >> 4);
-// return q + (r > 9);
-}
+  // return q + (r > 9);
+  }
 */
 //------------------------------------------------------------------------------
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -282,12 +282,12 @@ char* fmtFloat(float value, char* p, uint8_t prec) {
 }
 //------------------------------------------------------------------------------
 /** Print a number followed by a field terminator.
- * \param[in] value The number to be printed.
- * \param[in] ptr Pointer to last char in buffer.
- * \param[in] prec Number of digits after decimal point.
- * \param[in] expChar Use exp format if non zero.
- * \return Pointer to first character of result.
- */
+   \param[in] value The number to be printed.
+   \param[in] ptr Pointer to last char in buffer.
+   \param[in] prec Number of digits after decimal point.
+   \param[in] expChar Use exp format if non zero.
+   \return Pointer to first character of result.
+*/
 char* fmtFloat(float value, char* ptr, uint8_t prec, char expChar) {
   bool neg = value < 0;
   if (neg) {
@@ -405,7 +405,7 @@ float scanFloat(const char* str, char** ptr) {
     if (isDigit(c)) {
       digit = true;
       if (nd < 9) {
-        fract = 10*fract + c - '0';
+        fract = 10 * fract + c - '0';
         nd++;
         if (dot) {
           fracExp--;
@@ -440,7 +440,7 @@ float scanFloat(const char* str, char** ptr) {
       if (exp > EXP_LIMIT) {
         goto fail;
       }
-      exp = 10*exp + c - '0';
+      exp = 10 * exp + c - '0';
       successPtr = str;
       c = *str++;
     }

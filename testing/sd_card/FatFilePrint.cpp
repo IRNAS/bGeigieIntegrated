@@ -1,26 +1,26 @@
 /* FatLib Library
- * Copyright (C) 2012 by William Greiman
- *
- * This file is part of the FatLib Library
- *
- * This Library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This Library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with the FatLib Library.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
+   Copyright (C) 2012 by William Greiman
+
+   This file is part of the FatLib Library
+
+   This Library is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This Library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with the FatLib Library.  If not, see
+   <http://www.gnu.org/licenses/>.
+*/
 
 #undef ARDUINO
 #define PLATFORM_ID 3
- 
+
 #include <math.h>
 #include "FatFile.h"
 #include "FmtNumber.h"
@@ -30,8 +30,8 @@ static void print2u(print_t* pr, uint8_t v) {
   char c0 = '?';
   char c1 = '?';
   if (v < 100) {
-    c1 = v/10;
-    c0 = v - 10*c1 + '0';
+    c1 = v / 10;
+    c0 = v - 10 * c1 + '0';
     c1 += '0';
   }
   pr->write(c1);
@@ -89,7 +89,7 @@ void FatFile::dmpFile(print_t* pr, uint32_t pos, size_t n) {
     }
     pr->write(' ');
     printHex(pr, 2, h);
-    text[i&15] = ' ' <= h && h < 0X7F ? h : '.';
+    text[i & 15] = ' ' <= h && h < 0X7F ? h : '.';
   }
   pr->write('\r');
   pr->write('\n');
@@ -160,7 +160,7 @@ void FatFile::printFatTime(print_t* pr, uint16_t fatTime) {
 /** Template for FatFile::printField() */
 template <typename Type>
 static int printFieldT(FatFile* file, char sign, Type value, char term) {
-  char buf[3*sizeof(Type) + 3];
+  char buf[3 * sizeof(Type) + 3];
   char* str = &buf[sizeof(buf)];
 
   if (term) {
@@ -173,7 +173,7 @@ static int printFieldT(FatFile* file, char sign, Type value, char term) {
   do {
     Type m = value;
     value /= 10;
-    *--str = '0' + m - 10*value;
+    *--str = '0' + m - 10 * value;
   } while (value);
 #else  // OLD_FMT
   str = fmtDec(value, str);

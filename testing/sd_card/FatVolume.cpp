@@ -1,26 +1,26 @@
 /* FatLib Library
- * Copyright (C) 2013 by William Greiman
- *
- * This file is part of the FatLib Library
- *
- * This Library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This Library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with the FatLib Library.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
+   Copyright (C) 2013 by William Greiman
+
+   This file is part of the FatLib Library
+
+   This Library is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This Library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with the FatLib Library.  If not, see
+   <http://www.gnu.org/licenses/>.
+*/
 
 #undef ARDUINO
 #define PLATFORM_ID 3
- 
+
 #include <string.h>
 #include "FatVolume.h"
 //------------------------------------------------------------------------------
@@ -493,7 +493,7 @@ bool FatVolume::init(uint8_t part) {
   // directory start for FAT16 dataStart for FAT32
   m_rootDirStart = m_fatStartBlock + 2 * m_blocksPerFat;
   // data start for FAT16 and FAT32
-  m_dataStartBlock = m_rootDirStart + ((32 * fbs->rootDirEntryCount + 511)/512);
+  m_dataStartBlock = m_rootDirStart + ((32 * fbs->rootDirEntryCount + 511) / 512);
 
   // total blocks for FAT16 or FAT32
   totalBlocks = fbs->totalSectors16 ?
@@ -547,7 +547,7 @@ bool FatVolume::wipe(print_t* pr) {
     count = m_blocksPerCluster;
   } else {
     lbn = m_rootDirStart;
-    count = m_rootDirEntryCount/16;
+    count = m_rootDirEntryCount / 16;
   }
   for (uint32_t n = 0; n < count; n++) {
     if (!writeBlock(lbn + n, cache->data)) {
@@ -556,7 +556,7 @@ bool FatVolume::wipe(print_t* pr) {
     }
   }
   // Clear FATs.
-  count = 2*m_blocksPerFat;
+  count = 2 * m_blocksPerFat;
   lbn = m_fatStartBlock;
   for (uint32_t nb = 0; nb < count; nb++) {
     if (pr && (nb & 0XFF) == 0) {

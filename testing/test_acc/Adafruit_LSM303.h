@@ -9,16 +9,16 @@
   please support Adafruit andopen-source hardware by purchasing products
   from Adafruit!
 
-  Written by Kevin Townsend for Adafruit Industries.  
+  Written by Kevin Townsend for Adafruit Industries.
   BSD license, all text above must be included in any redistribution
  ***************************************************************************/
 #ifndef __LSM303_H__
 #define __LSM303_H__
 
 #if (ARDUINO >= 100)
- #include "Arduino.h"
+#include "Arduino.h"
 #else
- #include "WProgram.h"
+#include "WProgram.h"
 #endif
 //#include "Wire.h"
 #include "application.h"
@@ -31,7 +31,7 @@ class Adafruit_LSM303
 {
   public:
     typedef enum
-    {                                                     // DEFAULT    TYPE
+    { // DEFAULT    TYPE
       LSM303_REGISTER_ACCEL_CTRL_REG1_A         = 0x20,   // 00000111   rw
       LSM303_REGISTER_ACCEL_CTRL_REG2_A         = 0x21,   // 00000000   rw
       LSM303_REGISTER_ACCEL_CTRL_REG3_A         = 0x22,   // 00000000   rw
@@ -64,7 +64,7 @@ class Adafruit_LSM303
       LSM303_REGISTER_ACCEL_TIME_WINDOW_A       = 0x3D
     } lsm303AccelRegisters_t;
 
-	typedef enum
+    typedef enum
     {
       LSM303_REGISTER_MAG_CRA_REG_M             = 0x00,
       LSM303_REGISTER_MAG_CRB_REG_M             = 0x01,
@@ -83,35 +83,35 @@ class Adafruit_LSM303
       LSM303_REGISTER_MAG_TEMP_OUT_L_M          = 0x32
     } lsm303MagRegisters_t;
 
-	typedef enum
-	{
-	  LSM303_MAGGAIN_1_3                        = 0x20,  // +/- 1.3
-	  LSM303_MAGGAIN_1_9                        = 0x40,  // +/- 1.9
-	  LSM303_MAGGAIN_2_5                        = 0x60,  // +/- 2.5
-	  LSM303_MAGGAIN_4_0                        = 0x80,  // +/- 4.0
-	  LSM303_MAGGAIN_4_7                        = 0xA0,  // +/- 4.7
-	  LSM303_MAGGAIN_5_6                        = 0xC0,  // +/- 5.6
-	  LSM303_MAGGAIN_8_1                        = 0xE0   // +/- 8.1
-	} lsm303MagGain;	
-	
+    typedef enum
+    {
+      LSM303_MAGGAIN_1_3                        = 0x20,  // +/- 1.3
+      LSM303_MAGGAIN_1_9                        = 0x40,  // +/- 1.9
+      LSM303_MAGGAIN_2_5                        = 0x60,  // +/- 2.5
+      LSM303_MAGGAIN_4_0                        = 0x80,  // +/- 4.0
+      LSM303_MAGGAIN_4_7                        = 0xA0,  // +/- 4.7
+      LSM303_MAGGAIN_5_6                        = 0xC0,  // +/- 5.6
+      LSM303_MAGGAIN_8_1                        = 0xE0   // +/- 8.1
+    } lsm303MagGain;
+
     typedef struct lsm303AccelData_s
     {
       float x;
       float y;
       float z;
     } lsm303AccelData;
-	
-	typedef struct lsm303MagData_s
-	{
+
+    typedef struct lsm303MagData_s
+    {
       float x;
       float y;
       float z;
-	  float orientation;
-	} lsm303MagData;
+      float orientation;
+    } lsm303MagData;
 
     bool begin(void);
     void read(void);
-	void setMagGain(lsm303MagGain gain);
+    void setMagGain(lsm303MagGain gain);
 
     lsm303AccelData accelData;    // Last read accelerometer data will be available here
     lsm303MagData magData;        // Last read magnetometer data will be available here

@@ -1,22 +1,22 @@
 /* FatLib Library
- * Copyright (C) 2012 by William Greiman
- *
- * This file is part of the FatLib Library
- *
- * This Library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This Library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with the FatLib Library.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
+   Copyright (C) 2012 by William Greiman
+
+   This file is part of the FatLib Library
+
+   This Library is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This Library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with the FatLib Library.  If not, see
+   <http://www.gnu.org/licenses/>.
+*/
 #include "FatFile.h"
 
 #undef ARDUINO
@@ -49,12 +49,12 @@ static uint16_t Bernstein(uint16_t hash, const char *str, size_t len) {
 }
 //------------------------------------------------------------------------------
 /**
- * Fetch a 16-bit long file name character.
- *
- * \param[in] ldir Pointer to long file name directory entry.
- * \param[in] i Index of character.
- * \return The 16-bit character.
- */
+   Fetch a 16-bit long file name character.
+
+   \param[in] ldir Pointer to long file name directory entry.
+   \param[in] i Index of character.
+   \return The 16-bit character.
+*/
 static uint16_t lfnGetChar(ldir_t *ldir, uint8_t i) {
   if (i < LDIR_NAME1_DIM) {
     return ldir->name1[i];
@@ -68,7 +68,7 @@ static uint16_t lfnGetChar(ldir_t *ldir, uint8_t i) {
 //------------------------------------------------------------------------------
 static bool lfnGetName(ldir_t *ldir, char* name, size_t n) {
   uint8_t i;
-  size_t k = 13*((ldir->ord & 0X1F) - 1);
+  size_t k = 13 * ((ldir->ord & 0X1F) - 1);
   for (i = 0; i < 13; i++) {
     uint16_t c = lfnGetChar(ldir, i);
     if (c == 0 || k >= n) {
@@ -94,12 +94,12 @@ inline bool lfnLegalChar(char c) {
 }
 //------------------------------------------------------------------------------
 /**
- * Store a 16-bit long file name character.
- *
- * \param[in] ldir Pointer to long file name directory entry.
- * \param[in] i Index of character.
- * \param[in] c  The 16-bit character.
- */
+   Store a 16-bit long file name character.
+
+   \param[in] ldir Pointer to long file name directory entry.
+   \param[in] i Index of character.
+   \param[in] c  The 16-bit character.
+*/
 static void lfnPutChar(ldir_t *ldir, uint8_t i, uint16_t c) {
   if (i < LDIR_NAME1_DIM) {
     ldir->name1[i] = c;
@@ -111,7 +111,7 @@ static void lfnPutChar(ldir_t *ldir, uint8_t i, uint16_t c) {
 }
 //------------------------------------------------------------------------------
 static void lfnPutName(ldir_t *ldir, const char* name, size_t n) {
-  size_t k = 13*((ldir->ord & 0X1F) - 1);
+  size_t k = 13 * ((ldir->ord & 0X1F) - 1);
   for (uint8_t i = 0; i < 13; i++, k++) {
     uint16_t c = k < n ? name[k] : k == n ? 0 : 0XFFFF;
     lfnPutChar(ldir, i, c);
@@ -133,7 +133,7 @@ bool FatFile::getName(char* name, size_t size) {
     goto fail;
   }
   for (uint8_t ord = 1; ord <= m_lfnOrd; ord++) {
-    if (!dirFile.seekSet(32UL*(m_dirIndex - ord))) {
+    if (!dirFile.seekSet(32UL * (m_dirIndex - ord))) {
       DBG_FAIL_MACRO;
       goto fail;
     }
@@ -307,11 +307,11 @@ bool FatFile::open(FatFile* dirFile, fname_t* fname, uint8_t oflag) {
     goto fail;
   }
   // Number of directory entries needed.
-  freeNeed = fname->flags & FNAME_FLAG_NEED_LFN ? 1 + (len + 12)/13 : 1;
+  freeNeed = fname->flags & FNAME_FLAG_NEED_LFN ? 1 + (len + 12) / 13 : 1;
 
   dirFile->rewind();
   while (1) {
-    curIndex = dirFile->m_curPosition/32;
+    curIndex = dirFile->m_curPosition / 32;
     dir = dirFile->readDirCache(true);
     if (!dir) {
       if (dirFile->getError()) {
@@ -351,7 +351,7 @@ bool FatFile::open(FatFile* dirFile, fname_t* fname, uint8_t oflag) {
         lfnOrd = 0;
         continue;
       }
-      size_t k = 13*(ord - 1);
+      size_t k = 13 * (ord - 1);
       if (k >= len) {
         // Not found.
         lfnOrd = 0;
@@ -439,7 +439,7 @@ create:
       goto fail;
     }
   }
-  if (!dirFile->seekSet(32UL*freeIndex)) {
+  if (!dirFile->seekSet(32UL * freeIndex)) {
     DBG_FAIL_MACRO;
     goto fail;
   }
@@ -458,7 +458,7 @@ create:
     ldir->mustBeZero = 0;
     lfnPutName(ldir, fname->lfn, len);
   }
-  curIndex = dirFile->m_curPosition/32;
+  curIndex = dirFile->m_curPosition / 32;
   dir = dirFile->readDirCache();
   if (!dir) {
     DBG_FAIL_MACRO;
@@ -513,7 +513,7 @@ size_t FatFile::printName(print_t* pr) {
     goto fail;
   }
   for (uint8_t ord = 1; ord <= m_lfnOrd; ord++) {
-    if (!dirFile.seekSet(32UL*(m_dirIndex - ord))) {
+    if (!dirFile.seekSet(32UL * (m_dirIndex - ord))) {
       DBG_FAIL_MACRO;
       goto fail;
     }
@@ -596,7 +596,7 @@ bool FatFile::remove() {
     goto fail;
   }
   for (ord = 1; ord <= m_lfnOrd; ord++) {
-    if (!dirFile.seekSet(32UL*(m_dirIndex - ord))) {
+    if (!dirFile.seekSet(32UL * (m_dirIndex - ord))) {
       DBG_FAIL_MACRO;
       goto fail;
     }

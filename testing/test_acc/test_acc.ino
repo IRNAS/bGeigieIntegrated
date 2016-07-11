@@ -1,4 +1,4 @@
-#if defined(ARDUINO) 
+#if defined(ARDUINO)
 SYSTEM_MODE(MANUAL);//do not connect to cloud
 #else
 SYSTEM_MODE(AUTOMATIC);//connect to cloud
@@ -15,7 +15,7 @@ void setup()
 {
   Serial.begin(9600);
 
-  for(int i = 0; i < 10; i++)
+  for (int i = 0; i < 10; i++)
   {
     Serial.println("ready");
     delay(1000);
@@ -23,7 +23,7 @@ void setup()
 }
 
 void loop()
-{ 
+{
   // Try to initialise and warn if we couldn't detect the chip
   if (!lsm.begin())
   {

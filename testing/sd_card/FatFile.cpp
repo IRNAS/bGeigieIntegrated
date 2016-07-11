@@ -1,22 +1,22 @@
 /* FatLib Library
- * Copyright (C) 2012 by William Greiman
- *
- * This file is part of the FatLib Library
- *
- * This Library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This Library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with the FatLib Library.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
+   Copyright (C) 2012 by William Greiman
+
+   This file is part of the FatLib Library
+
+   This Library is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This Library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with the FatLib Library.  If not, see
+   <http://www.gnu.org/licenses/>.
+*/
 #include "FatFile.h"
 #include "FatFileSystem.h"
 
@@ -46,7 +46,7 @@ bool FatFile::addDirCluster() {
     goto fail;
   }
   // max folder size
-  if (m_curPosition >= 512UL*4095) {
+  if (m_curPosition >= 512UL * 4095) {
     DBG_FAIL_MACRO;
     goto fail;
   }
@@ -69,7 +69,7 @@ bool FatFile::addDirCluster() {
     }
   }
   // Set position to EOF to avoid inconsistent curCluster/curPosition.
-  m_curPosition += 512UL*m_vol->blocksPerCluster();
+  m_curPosition += 512UL * m_vol->blocksPerCluster();
   return true;
 
 fail:
@@ -210,7 +210,7 @@ uint32_t FatFile::dirSize() {
     return 0;
   }
   if (isRootFixed()) {
-    return 32*m_vol->rootDirEntryCount();
+    return 32 * m_vol->rootDirEntryCount();
   }
   uint16_t n = 0;
   uint32_t c = isRoot32() ? m_vol->rootDirStart() : m_firstCluster;
@@ -221,7 +221,7 @@ uint32_t FatFile::dirSize() {
     }
     n += m_vol->blocksPerCluster();
   } while (fg);
-  return 512UL*n;
+  return 512UL * n;
 }
 //------------------------------------------------------------------------------
 int16_t FatFile::fgets(char* str, int16_t num, char* delim) {
@@ -435,7 +435,7 @@ bool FatFile::open(FatFile* dirFile, uint16_t index, uint8_t oflag) {
   }
   if (index) {
     // Check for LFN.
-    if (!dirFile->seekSet(32UL*(index -1))) {
+    if (!dirFile->seekSet(32UL * (index - 1))) {
       DBG_FAIL_MACRO;
       goto fail;
     }
@@ -555,7 +555,7 @@ bool FatFile::openNext(FatFile* dirFile, uint8_t oflag) {
   }
   while (1) {
     // read entry into cache
-    index = dirFile->curPosition()/32;
+    index = dirFile->curPosition() / 32;
     dir_t* dir = dirFile->readDirCache();
     if (!dir) {
       if (dirFile->getError()) {
@@ -597,12 +597,12 @@ fail:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 //------------------------------------------------------------------------------
 /** Open a file's parent directory.
- *
- * \param[in] file Parent of this directory will be opened.  Must not be root.
- *
- * \return The value true is returned for success and
- * the value false is returned for failure.
- */
+
+   \param[in] file Parent of this directory will be opened.  Must not be root.
+
+   \return The value true is returned for success and
+   the value false is returned for failure.
+*/
 bool FatFile::openParent(FatFile* dirFile) {
   FatFile dotdot;
   uint32_t lbn;
@@ -639,7 +639,7 @@ bool FatFile::openParent(FatFile* dirFile) {
   }
   uint32_t di;
   do {
-    di = dotdot.curPosition()/32;
+    di = dotdot.curPosition() / 32;
     dir = dotdot.readDirCache();
     if (!dir) {
       DBG_FAIL_MACRO;
@@ -665,19 +665,19 @@ bool FatFile::openRoot(FatVolume* vol) {
   m_vol = vol;
   switch (vol->fatType()) {
 #if FAT12_SUPPORT
-  case 12:
+    case 12:
 #endif  // FAT12_SUPPORT
-  case 16:
-    m_attr = FILE_ATTR_ROOT_FIXED;
-    break;
+    case 16:
+      m_attr = FILE_ATTR_ROOT_FIXED;
+      break;
 
-  case 32:
-    m_attr = FILE_ATTR_ROOT32;
-    break;
+    case 32:
+      m_attr = FILE_ATTR_ROOT32;
+      break;
 
-  default:
-    DBG_FAIL_MACRO;
-    goto fail;
+    default:
+      DBG_FAIL_MACRO;
+      goto fail;
   }
   // read only
   m_flags = O_READ;
@@ -718,7 +718,7 @@ int FatFile::read(void* buf, size_t nbyte) {
       nbyte = tmp32;
     }
   } else if (isRootFixed()) {
-    uint16_t tmp16 = 32*m_vol->m_rootDirEntryCount - (uint16_t)m_curPosition;
+    uint16_t tmp16 = 32 * m_vol->m_rootDirEntryCount - (uint16_t)m_curPosition;
     if (nbyte > tmp16) {
       nbyte = tmp16;
     }
@@ -777,7 +777,7 @@ int FatFile::read(void* buf, size_t nbyte) {
           nb = mb;
         }
       }
-      n = 512*nb;
+      n = 512 * nb;
       if (m_vol->cacheBlockNumber() <= block
           && block < (m_vol->cacheBlockNumber() + nb)) {
         // flush cache if a block is in the cache
@@ -840,7 +840,7 @@ int8_t FatFile::readDir(dir_t* dir) {
 // Read next directory entry into the cache
 // Assumes file is correctly positioned
 dir_t* FatFile::readDirCache(bool skipReadOk) {
-//  uint8_t b;
+  //  uint8_t b;
   uint8_t i = (m_curPosition >> 5) & 0XF;
 
   if (i == 0 || !skipReadOk) {
@@ -1033,7 +1033,7 @@ bool FatFile::rmRfStar() {
   rewind();
   while (1) {
     // remember position
-    index = m_curPosition/32;
+    index = m_curPosition / 32;
 
     dir_t* dir = readDirCache();
     if (!dir) {
@@ -1078,8 +1078,8 @@ bool FatFile::rmRfStar() {
       }
     }
     // position to next entry if required
-    if (m_curPosition != (32UL*(index + 1))) {
-      if (!seekSet(32UL*(index + 1))) {
+    if (m_curPosition != (32UL * (index + 1))) {
+      if (!seekSet(32UL * (index + 1))) {
         DBG_FAIL_MACRO;
         goto fail;
       }
@@ -1122,7 +1122,7 @@ bool FatFile::seekSet(uint32_t pos) {
       goto fail;
     }
   } else if (isRootFixed()) {
-    if (pos <= 32*m_vol->rootDirEntryCount()) {
+    if (pos <= 32 * m_vol->rootDirEntryCount()) {
       goto done;
     }
     DBG_FAIL_MACRO;
@@ -1234,7 +1234,7 @@ fail:
 }
 //------------------------------------------------------------------------------
 bool FatFile::timestamp(uint8_t flags, uint16_t year, uint8_t month,
-                   uint8_t day, uint8_t hour, uint8_t minute, uint8_t second) {
+                        uint8_t day, uint8_t hour, uint8_t minute, uint8_t second) {
   uint16_t dirDate;
   uint16_t dirTime;
   dir_t* dir;
@@ -1448,7 +1448,7 @@ int FatFile::write(const void* buf, size_t nbyte) {
       if (nBlock > maxBlocks) {
         nBlock = maxBlocks;
       }
-      n = 512*nBlock;
+      n = 512 * nBlock;
       if (m_vol->cacheBlockNumber() <= block
           && block < (m_vol->cacheBlockNumber() + nBlock)) {
         // invalidate cache if block is in cache
