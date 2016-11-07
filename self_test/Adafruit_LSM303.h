@@ -23,9 +23,9 @@
 //#include "Wire.h"
 #include "application.h"
 
-#define LSM303_ADDRESS_ACCEL          (0x3A >> 1)         // 0011001x
+#define LSM303_ADDRESS_ACCEL          (0x32 >> 1)         // 0011001x
 #define LSM303_ADDRESS_MAG            (0x3C >> 1)         // 0011110x
-#define LSM303_ID                     (0b01000001)
+#define LSM303_ID                     (0b11010100)
 
 class Adafruit_LSM303
 {

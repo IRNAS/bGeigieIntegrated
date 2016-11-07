@@ -24,7 +24,7 @@ void setup()
 
 void loop()
 {
-  // Try to initialise and warn if we couldn't detect the chip
+  // Try to initialize and warn if we couldn't detect the chip
   if (!lsm.begin())
   {
     Serial.println("Oops ... unable to initialize the LSM303. Check your wiring!");
