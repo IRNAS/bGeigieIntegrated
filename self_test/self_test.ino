@@ -74,6 +74,7 @@ void setup()
 {
   Serial.begin(115200);
 
+  //pinMode(IROVER, INPUT);
   pinMode(IROVER, OUTPUT);
   pinMode(ENCODER_A, INPUT);
   pinMode(ENCODER_B, INPUT);
@@ -107,8 +108,8 @@ void loop()
   test_batt_volt_measure();
   test_encoder_switch_card_detect();
   test_encoder();
-  test_gps();
-  test_oled();
+  //test_gps();
+  //test_oled();
   test_sdcard();
   detect_power_switch_off();
   //test_acc();
